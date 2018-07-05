@@ -3,13 +3,9 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "strictNullChecks": true,
-    "module": "es6",
+    "module": "commonjs",
     "target": "es5",
-    "lib": [
-      "es2015"
-    ]
+    "lib": ["es2015"]
   },
-  "include": [
-    "./src/"
-  ]
+  "include": ["src/**/*.ts"]
 }

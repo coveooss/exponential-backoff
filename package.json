@@ -4,7 +4,13 @@
   "description": "A utility that allows retrying a function with an exponential delay between attempts.",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "build": "tsc",
+    "test": "npm run build && jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "repository": {
     "type": "git",
@@ -22,9 +28,12 @@
   },
   "homepage": "https://github.com/coveo/exponential-backoff#readme",
   "devDependencies": {
-    "@types/jasmine": "^2.8.8",
+    "@types/jest": "^23.1.4",
     "@types/node": "^10.5.1",
-    "jasmine": "^3.1.0",
+    "husky": "^0.14.3",
+    "jest": "^23.3.0",
+    "prettier": "^1.13.7",
+    "pretty-quick": "^1.6.0",
     "typescript": "^2.9.2"
   }
 }

@@ -43,9 +43,8 @@ export async function backOff<T>(request: IBackOffRequest<T>, options: Partial<I
 
 function getSanitizedOptions(options: Partial<IBackOffOptions>) {
   const sanitized: IBackOffOptions = { ...defaultOptions, ...options };
-  const numOfAttempts = sanitized.numOfAttempts;
-
-  if (numOfAttempts && numOfAttempts < 1) {
+  
+  if (sanitized.numOfAttempts < 1) {
     sanitized.numOfAttempts = 1;
   }
 
