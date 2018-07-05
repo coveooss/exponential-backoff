@@ -1,0 +1,24 @@
+{
+  "name": "exponential-backoff",
+  "version": "1.0.0",
+  "description": "A utility that allows retrying a function with an exponential delay between attempts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coveo/exponential-backoff.git"
+  },
+  "keywords": [
+    "exponential",
+    "backoff",
+    "retry"
+  ],
+  "author": "Sami Sayegh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coveo/exponential-backoff/issues"
+  },
+  "homepage": "https://github.com/coveo/exponential-backoff#readme"
+}
