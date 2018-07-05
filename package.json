@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/coveo/exponential-backoff/issues"
   },
-  "homepage": "https://github.com/coveo/exponential-backoff#readme"
+  "homepage": "https://github.com/coveo/exponential-backoff#readme",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.5.1",
+    "jasmine": "^3.1.0",
+    "typescript": "^2.9.2"
+  }
 }
