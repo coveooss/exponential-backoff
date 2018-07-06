@@ -2,10 +2,10 @@ language: node_js
 node_js:
 - 8.9.2
 script:
-- npm test
-before_deploy:
 - npm run build
+- npm test
 deploy:
+  skip_cleanup: true
   provider: npm
   email: sandbox_JSUI@coveo.com
   api_key:
