@@ -12,3 +12,4 @@ deploy:
   on:
     tags: true
     repo: coveo/exponential-backoff
+    branch: master
