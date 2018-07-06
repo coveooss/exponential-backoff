@@ -2,8 +2,12 @@ language: node_js
 script:
 - npm test
 node_js:
-- 8.5.0
+- 8.9.2
 deploy:
   provider: npm
-  email: "sandbox_JSUI@coveo.com"
-  api_key: "YOUR_AUTH_TOKEN"
+  email: sandbox_JSUI@coveo.com
+  api_key:
+    secure: EiYcyXvRRBM4SWhFLLMMLXmeNI4sNf7AOyIr4snwPdQAfJgcDaRy5OZc47bUJGM1/mYRaJIf7nIscZzxnM0iTN95A4IIJFP2OrPmbumfi+CGL9tfLYz9Z+si3u+ksN0gQEULLf+U+l+VRDEBq/6IaOKk2Iw8pEJ6HL5WYnWK6HeWzdL7odVUnGrW5K8lnaVAY0u8jkYQJWP8ySiDeJpSWNt/nzx2zje36bJQoAyAEKQ9eVnY6HBlIzS9Del3dMJ0PiWoEDw06VIuaJCtQ1sham605i9nxycdgAOCJQdZLm4He+bVRZFTBuFe3hqlF27fl7IqvfygphQI+8GJ26hi5fasL74xKIcJE8lV0fC71laF6l9jItwSPiUzdxd++C2qcMImJdFquHmCxa2yudxHXvwy6JpyLnc62MRW1DosRVasgTNZBV5wvPfHUrzyjpjmubjlxChp2LnmbHI+dkIRXdCNP5i/gQqedScRNA3wgcaryfjx7mhpIGvp+uz0TayHZQaLIc8ddr8J3XA5kPSIv01zxh99aL3JvdTxnJA9NRlsivCEB84VXCHukqUfsRLfAaWLi9i+RmI/GQihuOYtNpoc70x/45Jq1EP+XErzi6dxRXF847iUfRmw5WfXOVpO2aU8JU1ZXu0jPQsXyCZhhWtO7xtbcI9+dsTFgr741Ws=
+  on:
+    tags: true
+    repo: coveo/exponential-backoff
