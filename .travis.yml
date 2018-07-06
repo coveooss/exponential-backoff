@@ -1,0 +1,7 @@
+language: node_js
+script:
+- npm test
+deploy:
+  provider: npm
+  email: "sandbox_JSUI@coveo.com"
+  api_key: "YOUR_AUTH_TOKEN"
