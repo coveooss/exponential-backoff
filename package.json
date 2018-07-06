@@ -2,10 +2,11 @@
   "name": "exponential-backoff",
   "version": "1.0.0",
   "description": "A utility that allows retrying a function with an exponential delay between attempts.",
-  "main": "index.js",
+  "main": "dist/backoff.js",
+  "types": "dist/backoff.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && jest"
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -16,6 +17,15 @@
     "*.{ts,json,md}": [
       "prettier --write",
       "git add"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "\\.spec\\.ts$",
+    "moduleFileExtensions": [
+      "ts", "js"
     ]
   },
   "repository": {
@@ -40,6 +50,7 @@
     "jest": "^23.3.0",
     "lint-staged": "^7.2.0",
     "prettier": "^1.13.7",
+    "ts-jest": "^23.0.0",
     "typescript": "^2.9.2"
   }
 }
