@@ -1,7 +1,7 @@
 # exponential-backoff
 A utility that allows retrying a function with an exponential delay between attempts.
 
-The generic `backOff<T>` function takes an `IBackOffRequest` object, and an optional `IBackOffOptions` object. It returns a generic `Promise<T>`.
+The generic `backOff<T>` function takes an `IBackOffRequest<T>` object, and an optional `IBackOffOptions` object. It returns a generic `Promise<T>`.
 
 ```
 function backOff<T>(request: IBackOffRequest<T>, options: Partial<IBackOffOptions> = {}): Promise<T>
@@ -21,7 +21,7 @@ function backOff<T>(request: IBackOffRequest<T>, options: Partial<IBackOffOption
 ### `IBackOffOptions`
 * `numOfAttempts?: number`
 
-    The maximum number of times to attempt the request.
+    The maximum number of times to attempt the function.
     
     Default value is `10`.
     
@@ -35,6 +35,6 @@ function backOff<T>(request: IBackOffRequest<T>, options: Partial<IBackOffOption
 
 * `timeMultiple?: number`
 
-    The `startingDelay` is multiplied by this number to increase the delay between reattempts.
+    The `startingDelay` is multiplied by the `timeMultiple` value to increase the delay between reattempts.
     
     Default value is `2`.
