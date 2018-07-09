@@ -1,6 +1,13 @@
 # exponential-backoff
 A utility that allows retrying a function with an exponential delay between attempts.
 
+## Installation
+
+```
+npm i exponential-backoff
+```
+
+## Usage
 The generic `backOff<T>` function takes an `IBackOffRequest<T>` object, and an optional `IBackOffOptions` object. It returns a generic `Promise<T>`.
 
 ```
