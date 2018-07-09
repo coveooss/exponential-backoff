@@ -1,6 +1,6 @@
 {
   "name": "exponential-backoff",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A utility that allows retrying a function with an exponential delay between attempts.",
   "main": "dist/backoff.js",
   "types": "dist/backoff.d.ts",
@@ -25,7 +25,8 @@
     },
     "testRegex": "\\.spec\\.ts$",
     "moduleFileExtensions": [
-      "ts", "js"
+      "ts",
+      "js"
     ]
   },
   "repository": {
