@@ -1,4 +1,5 @@
-import { backOff, IBackOffRequest, IBackOffOptions } from './backoff';
+import { backOff, IBackOffRequest } from './backoff';
+import { IBackOffOptions } from './options';
 
 describe('BackOff', () => {
   const mockSuccessResponse = { success: true };
@@ -59,7 +60,41 @@ describe('BackOff', () => {
       return request.then(() => expect(backOffRequest.fn).toHaveBeenCalledTimes(1));
     });
   });
+  
+  describe(`when the #backOffOptions.startingDelay is 100ms`, () => {
+    const startingDelay = 100;
 
+    beforeEach(() => backOffOptions.startingDelay = startingDelay);
+
+    it(`delays the first attempt`, () => {
+      const startTime = Date.now();
+      const request = initBackOff();
+      
+      return request.then(() => {
+        const endTime = Date.now();
+        const duration = endTime - startTime;
+        const roundedDuration = Math.round(duration/100) * 100;
+
+        expect(roundedDuration).toBe(startingDelay);
+      })
+    })
+
+    it(`when #backOffOptions.delayFirstAttempt is 'false',
+    it does not delay the first attempt`, () => {
+      backOffOptions.delayFirstAttempt = false;
+      const startTime = Date.now();
+      const request = initBackOff();
+      
+      return request.then(() => {
+        const endTime = Date.now();
+        const duration = endTime - startTime;
+        const roundedDuration = Math.round(duration/100) * 100;
+
+        expect(roundedDuration).toBe(0);
+      })
+    })
+  })
+  
   describe('when #BackOffRequest.fn is a promise that is rejected', () => {
     beforeEach(() => backOffRequest.fn = promiseThatIsRejected());
 
@@ -81,14 +116,14 @@ describe('BackOff', () => {
 
     it(`when the #BackOffRequest.retry method is set to always return false,
     it only calls #BackOffRequest.fn one time`, () => {
-        backOffRequest.retry = () => false;
-        backOffOptions.numOfAttempts = 2;
-        backOffRequest.fn = jest.fn(() => Promise.reject(mockFailResponse));
+      backOffRequest.retry = () => false;
+      backOffOptions.numOfAttempts = 2;
+      backOffRequest.fn = jest.fn(() => Promise.reject(mockFailResponse));
 
-        const request = initBackOff();
+      const request = initBackOff();
 
-        return request.catch(() => expect(backOffRequest.fn).toHaveBeenCalledTimes(1));
-      });
+      return request.catch(() => expect(backOffRequest.fn).toHaveBeenCalledTimes(1));
+    });
   });
 
   describe(`when calling #backOff with a function that throws an error the first time, and succeeds the second time`, () => {
@@ -106,23 +141,23 @@ describe('BackOff', () => {
 
     it(`when setting the #BackOffOption.timeMultiple to a value,
     it applies a delay between the first and the second call`, () => {
-        const startingDelay = 100;
-        const timeMultiple = 3;
-        const totalExpectedDelay = startingDelay + timeMultiple * startingDelay;
+      const startingDelay = 100;
+      const timeMultiple = 3;
+      const totalExpectedDelay = startingDelay + timeMultiple * startingDelay;
 
-        backOffOptions.startingDelay = startingDelay;
-        backOffOptions.timeMultiple = timeMultiple;
+      backOffOptions.startingDelay = startingDelay;
+      backOffOptions.timeMultiple = timeMultiple;
 
-        const startTime = Date.now();
-        const request = initBackOff();
+      const startTime = Date.now();
+      const request = initBackOff();
 
-        return request.then(() => {
-          const endTime = Date.now();
-          const duration = endTime - startTime;
-          const roundedDuration = Math.round(duration / startingDelay) * startingDelay;
+      return request.then(() => {
+        const endTime = Date.now();
+        const duration = endTime - startTime;
+        const roundedDuration = Math.round(duration / startingDelay) * startingDelay;
 
-          expect(roundedDuration).toBe(totalExpectedDelay);
-        });
+        expect(roundedDuration).toBe(totalExpectedDelay);
       });
+    });
   });
 });
