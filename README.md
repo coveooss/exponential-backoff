@@ -26,6 +26,12 @@ function backOff<T>(request: IBackOffRequest<T>, options: Partial<IBackOffOption
     Default value is a function that always returns `true`.
 
 ### `IBackOffOptions`
+* `delayFirstAttempt?: boolean`
+
+    Decides whether the `startingDelay` should be applied before the first call to `fn`. If `false`, the first call to `fn` will occur without a delay.
+
+    Default value is `true`.
+
 * `numOfAttempts?: number`
 
     The maximum number of times to attempt the function.
