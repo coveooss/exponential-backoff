@@ -1,19 +1,9 @@
+import { IBackOffOptions, getSanitizedOptions } from './options';
+
 export interface IBackOffRequest<T> {
   fn: () => Promise<T>;
   retry?: (e, attemptNumber: number) => boolean;
 }
-
-export interface IBackOffOptions {
-  numOfAttempts: number;
-  timeMultiple: number;
-  startingDelay: number;
-}
-
-const defaultOptions: IBackOffOptions = {
-  numOfAttempts: 10,
-  timeMultiple: 2,
-  startingDelay: 100
-};
 
 export async function backOff<T>(request: IBackOffRequest<T>, options: Partial<IBackOffOptions> = {}): Promise<T> {
   const sanitizedOptions = getSanitizedOptions(options);
@@ -39,16 +29,6 @@ export async function backOff<T>(request: IBackOffRequest<T>, options: Partial<I
   }
 
   throw new Error('Something went wrong.');
-}
-
-function getSanitizedOptions(options: Partial<IBackOffOptions>) {
-  const sanitized: IBackOffOptions = { ...defaultOptions, ...options };
-  
-  if (sanitized.numOfAttempts < 1) {
-    sanitized.numOfAttempts = 1;
-  }
-
-  return sanitized;
 }
 
 function delayBeforeExecuting(delay: number) {
