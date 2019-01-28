@@ -1,4 +1,6 @@
 import { IBackOffOptions, getSanitizedOptions } from './options';
+import { IDelay } from './delay/delay.interface';
+import { DelayFactory } from './delay/delay.factory';
 
 export interface IBackOffRequest<T> {
   fn: () => Promise<T>;
@@ -14,16 +16,16 @@ export async function backOff<T>(request: IBackOffRequest<T>, options: Partial<I
 
 class BackOff<T> {
   private attemptNumber = 0;
-  private delay = 0;
-  
+  private delay: IDelay;
+
   constructor(private request: IBackOffRequest<T>, private options: IBackOffOptions) {
-    this.delay = options.startingDelay;
+    this.delay = DelayFactory(options);
   }
 
   public async execute(): Promise<T> {
     while (!this.attemptLimitReached) {
       try {
-        await this.applyDelayIfNeeded();
+        await this.applyDelay();
         return await this.request.fn();
       } catch (e) {
         this.attemptNumber++;
@@ -42,29 +44,8 @@ class BackOff<T> {
     return this.attemptNumber >= this.options.numOfAttempts
   }
 
-  private async applyDelayIfNeeded() {
-    if (this.shouldDelay) {
-      await this.applyDelay();
-      this.increaseDelayByTimeMultiple();
-    }
-
-    return true;
-  }
-
-  private get shouldDelay() {
-    const doNotDelayFirstAttempt = !this.options.delayFirstAttempt;
-    return (this.isFirstAttempt && doNotDelayFirstAttempt) ? false : true;
-  }
-
-  private get isFirstAttempt() {
-    return this.attemptNumber === 0;
-  }
-
-  private applyDelay() {
-    return new Promise(resolve => setTimeout(resolve, this.delay));
-  }
-
-  private increaseDelayByTimeMultiple() {
-    this.delay *= this.options.timeMultiple;
+  private async applyDelay() {
+    this.delay.setAttemptNumber(this.attemptNumber);
+    await this.delay.apply();
   }
 }
