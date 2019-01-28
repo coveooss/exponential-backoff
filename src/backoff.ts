@@ -16,11 +16,8 @@ export async function backOff<T>(request: IBackOffRequest<T>, options: Partial<I
 
 class BackOff<T> {
   private attemptNumber = 0;
-  private delay: IDelay;
 
-  constructor(private request: IBackOffRequest<T>, private options: IBackOffOptions) {
-    this.delay = DelayFactory(options);
-  }
+  constructor(private request: IBackOffRequest<T>, private options: IBackOffOptions) {}
 
   public async execute(): Promise<T> {
     while (!this.attemptLimitReached) {
@@ -45,7 +42,7 @@ class BackOff<T> {
   }
 
   private async applyDelay() {
-    this.delay.setAttemptNumber(this.attemptNumber);
-    await this.delay.apply();
+    const delay = DelayFactory(this.options, this.attemptNumber);
+    await delay.apply();
   }
 }
