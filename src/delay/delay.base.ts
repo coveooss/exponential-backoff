@@ -16,11 +16,12 @@ export abstract class Delay implements IDelay {
     private get delay() {
         const constant = this.options.startingDelay;
         const base = this.options.timeMultiple;
-        const delay = constant * Math.pow(base, this.power);
-        return delay;
+        const power = this.numOfDelayedAttempts;
+        
+        return constant * Math.pow(base, power);
     }
 
-    protected get power() {
+    protected get numOfDelayedAttempts() {
         return this.attempt;
     }
 }

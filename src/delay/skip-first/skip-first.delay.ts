@@ -9,7 +9,7 @@ export class SkipFirstDelay extends Delay {
         return this.attempt === 0;
     }
 
-    protected get power() {
+    protected get numOfDelayedAttempts() {
         return this.attempt - 1;
     }
 }
