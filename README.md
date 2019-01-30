@@ -32,6 +32,12 @@ function backOff<T>(request: IBackOffRequest<T>, options: Partial<IBackOffOption
 
     Default value is `true`.
 
+* `jitter?: JitterType | string`
+
+    Decides whether a [jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) should be applied to the delay. Possible values are `full` and `none`.
+
+    Default value is `none`.
+
 * `numOfAttempts?: number`
 
     The maximum number of times to attempt the function.
