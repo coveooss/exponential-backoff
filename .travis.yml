@@ -3,19 +3,17 @@ node_js:
 - 8.9.2
 notifications:
   email:
-    on_success: change
+    on_success: never
     on_failure: always
 script:
 - npm test
 before_deploy:
 - npm run build
 deploy:
-  skip_cleanup: true
   provider: npm
   email: sandbox_JSUI@coveo.com
   api_key:
-    secure: v1mGiT896/J3y4PyqciWwytoO6rNbQ566jIpnoX1WyPxqXskkyX073bfnL/cuMBK+Am1rVlUxmuDJIQHAJ+ouUZw6Gpd+F+UdtuZVX01fUXkmPrdQYghcAuRP26m+1Nq7F8nWhWtUo5ymcarIpXZw9+nAnuMw5LKIC25nlSl4JmelUo+DnsHpQ8eJWnx4s1sGyP9lPAITdLRAsUT/2kX0g65zYJuBO78+PLNeKpk0Gkck3YO3do/6WV0D0lvcDnaPjRPNbP0L4iBVK2hdgYgr+enmaV4Nm5Xeow+YbCQjOJePJu5WWolN+rYNqch7PHD7kphEQSCzotHBwngloEetVOriMZtIc5j7aoXdGrGKJx2X94lJhjfKruw2A9856VkYV9UmtlZ+1DwWLWo2GIINrBqup/og8pZmKeMOhZuRFOQopd0MF5peJon0JNK3z87zEv1bImKu/njYc7ANxtLCgx0b2Poy7PWA5WiXZmRaG9MQ7aLW6HtiWQwBSOW/y69oDmvgviIO8vU9R8cQkjXQe5j0CVqp2P7N2SKXmp9U4ISox/qjq49j66vaQ7C+57m4/YSN5T452uVAkG/DgOGsKxlyo50gc3iZRrbd8Q5yQ7vUQYt5bfAXbaisMNxc7+ACAzJFOHyjqXmbpng0ciOSwMRAtWHe6us8Tkwxpo//P8=
+    secure: bJCAqHCRIgquFcxcs7VsLwWvSz9nNgS/tcahxD/UJQvV3S16OpxOwq1ULW0W/3GNeloTL1dLS3BctRN55pXJsGffJRcZ+2f7zKsLtiWNZXctH5488z34LN6kyyyJmrV4kLYK5XxyWYsiE2GQJFx2sbPla7lC1zA4F9JX3auRLUjvYUUlktvr8rF1u+sXyxJb2/RM9JUbBNyLz7o/SsOa7K4F79AzEAsn+ANh2iPERRVVdBhZPacdb8d2c4wVzsmfG8WX12+yu36wZOdPkK+KQyQkeDc9PA6QXqaZvCNZRt5fli5fH7dpQVZGM/kvdQ0CfAFTTaBkwK0yUB929qOFY1RbrdHfBYW4JSHJ871wE1EqAsgUAaw8OKVQ18nVjb36dEh+KE69iWhDDsnRxM24Z4HS+lbWk5hz1knu1aaamwBKYnQ+gAVD/ZG+5UEM9bxAxT+jsIlMiJbxnXSu2Xn9TB55kizWOLjh0u/McXkdy06kXQb5T867ouC4UT8rXZB1f3hjr0Rzcge/pjR56XY+sGkJWgypGGXsMr09e/EG7TdE4LogMElUy6cRF2wt3hfmLgMrGUwMbD7XcB2wDfedRu4OKMInCj0NoWyvCagkJ4hqpTpqm33ea+CQVyI1vs1ddIjyCHbAFaVJH2yrOmfhBa8b9+BqW1Te4baRchslos0=
   on:
     tags: true
     repo: coveo/exponential-backoff
-    branch: master
