@@ -16,6 +16,8 @@ The generic `backOff<T>` function takes a function `() => Promise<T>` to be retr
 function backOff<T>(request: () => Promise<T>, options: IBackOffOptions = {}): Promise<T>
 ```
 
+Migrating from v1 to v2? Here are our [breaking changes](https://github.com/coveo/exponential-backoff/tree/master/doc/v1-to-v2-migration.md).
+
 ### `IBackOffOptions`
 
 - `delayFirstAttempt?: boolean`
