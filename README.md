@@ -1,4 +1,5 @@
 # exponential-backoff
+
 A utility that allows retrying a function with an exponential delay between attempts.
 
 ## Installation
@@ -8,52 +9,49 @@ npm i exponential-backoff
 ```
 
 ## Usage
-The generic `backOff<T>` function takes an `IBackOffRequest<T>` object, and an optional `IBackOffOptions` object. It returns a generic `Promise<T>`.
+
+The generic `backOff<T>` function takes a function `() => Promise<T>` to be retried, and an optional `IBackOffOptions` object. It returns a generic `Promise<T>`.
 
 ```
-function backOff<T>(request: IBackOffRequest<T>, options: Partial<IBackOffOptions> = {}): Promise<T>
+function backOff<T>(request: () => Promise<T>, options: IBackOffOptions = {}): Promise<T>
 ```
-
-### `IBackOffRequest<T>`
-* `fn: () => Promise<T>`
-
-    The function to be attempted.
-
-* `retry?: (e, attemptNumber: number) => boolean`
-    
-    Everytime `fn` returns a rejected promise, the `retry` function is called with the error and the attempt number. Returning `true` will reattempt the function as long as the `numOfAttempts` has not been exceeded. Returning `false` will end the execution.
-    
-    Default value is a function that always returns `true`.
 
 ### `IBackOffOptions`
-* `delayFirstAttempt?: boolean`
 
-    Decides whether the `startingDelay` should be applied before the first call to `fn`. If `false`, the first call to `fn` will occur without a delay.
+- `delayFirstAttempt?: boolean`
 
-    Default value is `true`.
+  Decides whether the `startingDelay` should be applied before the first call. If `false`, the first call will occur without a delay.
 
-* `jitter?: JitterType | string`
+  Default value is `true`.
 
-    Decides whether a [jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) should be applied to the delay. Possible values are `full` and `none`.
+- `jitter?: JitterType | string`
 
-    Default value is `none`.
+  Decides whether a [jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) should be applied to the delay. Possible values are `full` and `none`.
 
-* `numOfAttempts?: number`
+  Default value is `none`.
 
-    The maximum number of times to attempt the function.
-    
-    Default value is `10`.
-    
-    Minimum value is `1`.
+- `numOfAttempts?: number`
 
-* `startingDelay?: number`
+  The maximum number of times to attempt the function.
 
-    The delay before executing the function for the first time.
-    
-    Default value is `100` ms.
+  Default value is `10`.
 
-* `timeMultiple?: number`
+  Minimum value is `1`.
 
-    The `startingDelay` is multiplied by the `timeMultiple` value to increase the delay between reattempts.
-    
-    Default value is `2`.
+- `retry?: (e: any, attemptNumber: number) => boolean`
+
+  Everytime the function returns a rejected promise, the `retry` function is called with the error and the attempt number. Returning `true` will reattempt the function as long as the `numOfAttempts` has not been exceeded. Returning `false` will end the execution.
+
+  Default value is a function that always returns `true`.
+
+- `startingDelay?: number`
+
+  The delay before executing the function for the first time.
+
+  Default value is `100` ms.
+
+- `timeMultiple?: number`
+
+  The `startingDelay` is multiplied by the `timeMultiple` to increase the delay between reattempts.
+
+  Default value is `2`.
