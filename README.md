@@ -22,7 +22,7 @@ function backOff<T>(request: () => Promise<T>, options: IBackOffOptions = {}): P
 
   Decides whether the `startingDelay` should be applied before the first call. If `false`, the first call will occur without a delay.
 
-  Default value is `true`.
+  Default value is `false`.
 
 - `jitter?: JitterType | string`
 

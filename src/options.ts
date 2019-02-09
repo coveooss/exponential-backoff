@@ -13,7 +13,7 @@ export interface IBackOffOptions {
 }
 
 const defaultOptions: IBackOffOptions = {
-  delayFirstAttempt: true,
+  delayFirstAttempt: false,
   jitter: JitterTypes.None,
   retry: () => true,
   numOfAttempts: 10,

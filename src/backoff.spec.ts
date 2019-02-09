@@ -72,22 +72,7 @@ describe("BackOff", () => {
 
     beforeEach(() => (backOffOptions.startingDelay = startingDelay));
 
-    it(`delays the first attempt`, () => {
-      const startTime = Date.now();
-      const request = initBackOff();
-
-      return request.then(() => {
-        const endTime = Date.now();
-        const duration = endTime - startTime;
-        const roundedDuration = Math.round(duration / 100) * 100;
-
-        expect(roundedDuration).toBe(startingDelay);
-      });
-    });
-
-    it(`when #backOffOptions.delayFirstAttempt is 'false',
-    it does not delay the first attempt`, () => {
-      backOffOptions.delayFirstAttempt = false;
+    it(`does not delay the first attempt`, () => {
       const startTime = Date.now();
       const request = initBackOff();
 
@@ -97,6 +82,21 @@ describe("BackOff", () => {
         const roundedDuration = Math.round(duration / 100) * 100;
 
         expect(roundedDuration).toBe(0);
+      });
+    });
+
+    it(`when #backOffOptions.delayFirstAttempt is 'true',
+    it delays the first attempt`, () => {
+      backOffOptions.delayFirstAttempt = true;
+      const startTime = Date.now();
+      const request = initBackOff();
+
+      return request.then(() => {
+        const endTime = Date.now();
+        const duration = endTime - startTime;
+        const roundedDuration = Math.round(duration / 100) * 100;
+
+        expect(roundedDuration).toBe(startingDelay);
       });
     });
   });
@@ -156,6 +156,7 @@ describe("BackOff", () => {
     });
 
     it(`when setting the #BackOffOption.timeMultiple to a value,
+    when setting the #BackOffOption.delayFirstAttempt to true,
     it applies a delay between the first and the second call`, () => {
       const startingDelay = 100;
       const timeMultiple = 3;
@@ -163,6 +164,7 @@ describe("BackOff", () => {
 
       backOffOptions.startingDelay = startingDelay;
       backOffOptions.timeMultiple = timeMultiple;
+      backOffOptions.delayFirstAttempt = true;
 
       const startTime = Date.now();
       const request = initBackOff();
