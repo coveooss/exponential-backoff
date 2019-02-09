@@ -1,23 +1,28 @@
-import { IBackOffOptions, getSanitizedOptions } from './options';
-import { IDelay } from './delay/delay.interface';
-import { DelayFactory } from './delay/delay.factory';
+import { IBackOffOptions, getSanitizedOptions } from "./options";
+import { DelayFactory } from "./delay/delay.factory";
 
 export interface IBackOffRequest<T> {
   fn: () => Promise<T>;
   retry?: (e, attemptNumber: number) => boolean;
 }
 
-export async function backOff<T>(request: IBackOffRequest<T>, options: Partial<IBackOffOptions> = {}): Promise<T> {
+export async function backOff<T>(
+  request: IBackOffRequest<T>,
+  options: Partial<IBackOffOptions> = {}
+): Promise<T> {
   const sanitizedOptions = getSanitizedOptions(options);
   const backOff = new BackOff(request, sanitizedOptions);
-  
+
   return await backOff.execute();
 }
 
 class BackOff<T> {
   private attemptNumber = 0;
 
-  constructor(private request: IBackOffRequest<T>, private options: IBackOffOptions) {}
+  constructor(
+    private request: IBackOffRequest<T>,
+    private options: IBackOffOptions
+  ) {}
 
   public async execute(): Promise<T> {
     while (!this.attemptLimitReached) {
@@ -26,19 +31,21 @@ class BackOff<T> {
         return await this.request.fn();
       } catch (e) {
         this.attemptNumber++;
-        const shouldRetry = this.request.retry ? this.request.retry(e, this.attemptNumber) : true;
-  
+        const shouldRetry = this.request.retry
+          ? this.request.retry(e, this.attemptNumber)
+          : true;
+
         if (!shouldRetry || this.attemptLimitReached) {
           throw e;
         }
       }
     }
-  
-    throw new Error('Something went wrong.');
+
+    throw new Error("Something went wrong.");
   }
 
   private get attemptLimitReached() {
-    return this.attemptNumber >= this.options.numOfAttempts
+    return this.attemptNumber >= this.options.numOfAttempts;
   }
 
   private async applyDelay() {
