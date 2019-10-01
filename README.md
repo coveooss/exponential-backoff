@@ -13,6 +13,8 @@ npm i exponential-backoff
 The generic `backOff<T>` function takes a function `() => Promise<T>` to be retried, and an optional `IBackOffOptions` object. It returns a generic `Promise<T>`.
 
 ```
+import { backOff } from 'exponential-backoff' 
+
 function backOff<T>(request: () => Promise<T>, options: IBackOffOptions = {}): Promise<T>
 ```
 
