@@ -52,6 +52,10 @@ Migrating from v1 to v2? Here are our [breaking changes](https://github.com/cove
 
   Default value is `100` ms.
 
+- `maxDelay?: number`
+
+  The maximum delay before executing the function again.
+
 - `timeMultiple?: number`
 
   The `startingDelay` is multiplied by the `timeMultiple` to increase the delay between reattempts.

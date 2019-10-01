@@ -24,6 +24,9 @@ export abstract class Delay implements IDelay {
         const base = this.options.timeMultiple;
         const power = this.numOfDelayedAttempts;
         
+        if (this.options.maxDelay !== undefined) {
+            return Math.min(constant * Math.pow(base, power), this.options.maxDelay);
+        }
         return constant * Math.pow(base, power);
     }
 

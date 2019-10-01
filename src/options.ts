@@ -10,6 +10,7 @@ export interface IBackOffOptions {
   retry: (e: any, attemptNumber: number) => boolean;
   timeMultiple: number;
   startingDelay: number;
+  maxDelay?: number;
 }
 
 const defaultOptions: IBackOffOptions = {
