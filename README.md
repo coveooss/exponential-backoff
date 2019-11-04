@@ -10,10 +10,32 @@ npm i exponential-backoff
 
 ## Usage
 
-The generic `backOff<T>` function takes a function `() => Promise<T>` to be retried, and an optional `IBackOffOptions` object. It returns a generic `Promise<T>`.
+The `backOff<T>` function takes a promise-returning function to retry, and an optional `IBackOffOptions` object. It returns a `Promise<T>`.
 
 ```
-function backOff<T>(request: () => Promise<T>, options: IBackOffOptions = {}): Promise<T>
+function backOff<T>(request: () => Promise<T>, options?: IBackOffOptions): Promise<T>
+```
+
+Here is an example retrying a function that calls a hypothetical weather endpoint:
+
+```
+import { backOff } from 'exponential-backoff';
+
+function getWeather() {
+    return fetch('weather-endpoint');
+}
+
+async function main() {
+    try {
+        const response = await backOff(() => getWeather());
+        // process response
+    }
+    catch (e) {
+        // handle error
+    }
+}
+
+main();
 ```
 
 Migrating from v1 to v2? Here are our [breaking changes](https://github.com/coveo/exponential-backoff/tree/master/doc/v1-to-v2-migration.md).
