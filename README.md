@@ -54,6 +54,12 @@ Migrating from v1 to v2? Here are our [breaking changes](https://github.com/cove
 
   Default value is `none`.
 
+- `maxDelay?: number`
+
+  The maximum delay between two consecutive attempts.
+
+  Default value is `Infinity`.
+
 - `numOfAttempts?: number`
 
   The maximum number of times to attempt the function.
