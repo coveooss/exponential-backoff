@@ -12,13 +12,13 @@ npm i exponential-backoff
 
 The `backOff<T>` function takes a promise-returning function to retry, and an optional `IBackOffOptions` object. It returns a `Promise<T>`.
 
-```
+```ts
 function backOff<T>(request: () => Promise<T>, options?: IBackOffOptions): Promise<T>
 ```
 
 Here is an example retrying a function that calls a hypothetical weather endpoint:
 
-```
+```js
 import { backOff } from 'exponential-backoff';
 
 function getWeather() {
