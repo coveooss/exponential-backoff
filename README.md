@@ -13,26 +13,28 @@ npm i exponential-backoff
 The `backOff<T>` function takes a promise-returning function to retry, and an optional `IBackOffOptions` object. It returns a `Promise<T>`.
 
 ```ts
-function backOff<T>(request: () => Promise<T>, options?: IBackOffOptions): Promise<T>
+function backOff<T>(
+  request: () => Promise<T>,
+  options?: IBackOffOptions
+): Promise<T>;
 ```
 
 Here is an example retrying a function that calls a hypothetical weather endpoint:
 
 ```js
-import { backOff } from 'exponential-backoff';
+import { backOff } from "exponential-backoff";
 
 function getWeather() {
-    return fetch('weather-endpoint');
+  return fetch("weather-endpoint");
 }
 
 async function main() {
-    try {
-        const response = await backOff(() => getWeather());
-        // process response
-    }
-    catch (e) {
-        // handle error
-    }
+  try {
+    const response = await backOff(() => getWeather());
+    // process response
+  } catch (e) {
+    // handle error
+  }
 }
 
 main();
@@ -70,7 +72,7 @@ Migrating from v1 to v2? Here are our [breaking changes](https://github.com/cove
 
 - `retry?: (e: any, attemptNumber: number) => boolean`
 
-  Everytime the function returns a rejected promise, the `retry` function is called with the error and the attempt number. Returning `true` will reattempt the function as long as the `numOfAttempts` has not been exceeded. Returning `false` will end the execution.
+  The `retry` function can be used to run logic after every failed attempt (e.g. logging a message, assessing the last error, etc.). It is called with the last error and the upcoming attempt number. Returning `true` will retry the function as long as the `numOfAttempts` has not been exceeded. Returning `false` will end the execution.
 
   Default value is a function that always returns `true`.
 
