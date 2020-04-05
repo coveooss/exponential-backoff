@@ -40,7 +40,7 @@ async function main() {
 main();
 ```
 
-Migrating from v1 to v2? Here are our [breaking changes](https://github.com/coveo/exponential-backoff/tree/master/doc/v1-to-v2-migration.md).
+Migrating across major versions? Here are our [breaking changes](https://github.com/coveo/exponential-backoff/tree/master/doc/migration-guide.md).
 
 ### `IBackOffOptions`
 
