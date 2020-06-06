@@ -1,4 +1,4 @@
 export interface IDelay {
-    apply: () => Promise<{}>
-    setAttemptNumber: (attempt: number) => void;
+  apply: () => Promise<unknown>;
+  setAttemptNumber: (attempt: number) => void;
 }

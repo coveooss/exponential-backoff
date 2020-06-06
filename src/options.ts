@@ -1,24 +1,23 @@
-export enum JitterTypes {
-  None = "none",
-  Full = "full"
-}
+export type JitterType = "none" | "full";
 
 export interface IBackOffOptions {
   delayFirstAttempt: boolean;
-  jitter: JitterTypes;
+  jitter: JitterType;
+  maxDelay: number;
   numOfAttempts: number;
   retry: (e: any, attemptNumber: number) => boolean;
-  timeMultiple: number;
   startingDelay: number;
+  timeMultiple: number;
 }
 
 const defaultOptions: IBackOffOptions = {
   delayFirstAttempt: false,
-  jitter: JitterTypes.None,
-  retry: () => true,
+  jitter: "none",
+  maxDelay: Infinity,
   numOfAttempts: 10,
-  timeMultiple: 2,
-  startingDelay: 100
+  retry: () => true,
+  startingDelay: 100,
+  timeMultiple: 2
 };
 
 export function getSanitizedOptions(options: Partial<IBackOffOptions>) {
