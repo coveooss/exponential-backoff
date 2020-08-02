@@ -58,7 +58,7 @@ Migrating across major versions? Here are our [breaking changes](https://github.
 
 - `maxDelay?: number`
 
-  The maximum delay between two consecutive attempts.
+  The maximum delay, in milliseconds, between two consecutive attempts.
 
   Default value is `Infinity`.
 
@@ -78,7 +78,7 @@ Migrating across major versions? Here are our [breaking changes](https://github.
 
 - `startingDelay?: number`
 
-  The delay before executing the function for the first time.
+  The delay, in milliseconds, before executing the function for the first time.
 
   Default value is `100` ms.
 
