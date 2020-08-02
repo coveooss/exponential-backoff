@@ -5,7 +5,7 @@ export interface IBackOffOptions {
   jitter: JitterType;
   maxDelay: number;
   numOfAttempts: number;
-  retry: (e: any, attemptNumber: number) => boolean;
+  retry: (e: any, attemptNumber: number) => boolean | Promise<boolean>;
   startingDelay: number;
   timeMultiple: number;
 }
