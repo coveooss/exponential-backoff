@@ -70,7 +70,7 @@ Migrating across major versions? Here are our [breaking changes](https://github.
 
   Minimum value is `1`.
 
-- `retry?: (e: any, attemptNumber: number) => boolean`
+- `retry?: (e: any, attemptNumber: number) => boolean | Promise<boolean>`
 
   The `retry` function can be used to run logic after every failed attempt (e.g. logging a message, assessing the last error, etc.). It is called with the last error and the upcoming attempt number. Returning `true` will retry the function as long as the `numOfAttempts` has not been exceeded. Returning `false` will end the execution.
 

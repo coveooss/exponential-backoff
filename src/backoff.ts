@@ -28,7 +28,7 @@ class BackOff<T> {
         return await this.request();
       } catch (e) {
         this.attemptNumber++;
-        const shouldRetry = this.options.retry(e, this.attemptNumber);
+        const shouldRetry = await this.options.retry(e, this.attemptNumber);
 
         if (!shouldRetry || this.attemptLimitReached) {
           throw e;
