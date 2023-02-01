@@ -10,12 +10,12 @@ npm i exponential-backoff
 
 ## Usage
 
-The `backOff<T>` function takes a promise-returning function to retry, and an optional `IBackOffOptions` object. It returns a `Promise<T>`.
+The `backOff<T>` function takes a promise-returning function to retry, and an optional `BackOffOptions` object. It returns a `Promise<T>`.
 
 ```ts
 function backOff<T>(
   request: () => Promise<T>,
-  options?: IBackOffOptions
+  options?: BackOffOptions
 ): Promise<T>;
 ```
 
@@ -42,7 +42,7 @@ main();
 
 Migrating across major versions? Here are our [breaking changes](https://github.com/coveo/exponential-backoff/tree/master/doc/migration-guide.md).
 
-### `IBackOffOptions`
+### `BackOffOptions`
 
 - `delayFirstAttempt?: boolean`
 

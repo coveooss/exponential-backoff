@@ -1,11 +1,15 @@
-import { IBackOffOptions, getSanitizedOptions } from "./options";
+import {
+  IBackOffOptions,
+  getSanitizedOptions,
+  BackoffOptions
+} from "./options";
 import { DelayFactory } from "./delay/delay.factory";
 
-export { IBackOffOptions };
+export { BackoffOptions, IBackOffOptions };
 
 export async function backOff<T>(
   request: () => Promise<T>,
-  options: Partial<IBackOffOptions> = {}
+  options: BackoffOptions = {}
 ): Promise<T> {
   const sanitizedOptions = getSanitizedOptions(options);
   const backOff = new BackOff(request, sanitizedOptions);
