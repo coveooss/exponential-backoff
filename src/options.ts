@@ -1,5 +1,7 @@
 export type JitterType = "none" | "full";
 
+export type BackoffOptions = Partial<IBackOffOptions>;
+
 export interface IBackOffOptions {
   delayFirstAttempt: boolean;
   jitter: JitterType;
@@ -20,7 +22,7 @@ const defaultOptions: IBackOffOptions = {
   timeMultiple: 2
 };
 
-export function getSanitizedOptions(options: Partial<IBackOffOptions>) {
+export function getSanitizedOptions(options: BackoffOptions) {
   const sanitized: IBackOffOptions = { ...defaultOptions, ...options };
 
   if (sanitized.numOfAttempts < 1) {

@@ -1,11 +1,11 @@
 import { backOff } from "./backoff";
-import { IBackOffOptions } from "./options";
+import { BackoffOptions } from "./options";
 
 describe("BackOff", () => {
   const mockSuccessResponse = { success: true };
   const mockFailResponse = { success: false };
   let backOffRequest: () => Promise<any>;
-  let backOffOptions: Partial<IBackOffOptions>;
+  let backOffOptions: BackoffOptions;
 
   function initBackOff() {
     return backOff(backOffRequest, backOffOptions);
