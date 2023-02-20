@@ -12,7 +12,6 @@ jobs:
       - run: npm run build
       - run: npm run test
       - if: startsWith(github.ref, 'refs/tags/v')
-        run: npm whoami && ls ./dist
+        run: npm publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      # - run: npm publish
