@@ -23,6 +23,6 @@ jobs:
       - run: ls ./dist
       # - run: npm run build
       - run: npm whoami
-      # - run: npm publish
-      - env:
+        env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - run: npm publish
