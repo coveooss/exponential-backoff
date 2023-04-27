@@ -1,0 +1,22 @@
+name: CD
+on:
+  push:
+    tags:
+      - v*  
+jobs:
+  cd:
+    name: CD
+    runs-on: ubuntu-latest
+    environment: CD
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          registry-url: "https://registry.npmjs.org"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  
