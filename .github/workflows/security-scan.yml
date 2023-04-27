@@ -1,0 +1,34 @@
+name: "Security Scan"
+
+on:
+  schedule:
+    - cron: "17 2 * * 2"
+  workflow_run:
+    workflows:
+      - CD
+    types:
+      - completed
+  pull_request:
+    branches: [main]
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  codeql:
+    name: CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript"]
+
+    steps:
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
+      - name: CodeQL
+        uses: ./.github/actions/codeql
+        with:
+          language: ${{ matrix.language }}
