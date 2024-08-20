@@ -220,7 +220,6 @@ describe("BackOff", () => {
 
     await expect(initBackOff()).rejects.toEqual(mockFailResponse);
 
-    // Ensure that backOffRequest is only called once, before the abort signal is handled
     expect(backOffRequest).toHaveBeenCalledTimes(2);
   });
 });
