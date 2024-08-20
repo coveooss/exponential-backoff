@@ -192,5 +192,35 @@ describe("BackOff", () => {
     });
   });
 
-  it("T");
+  it("When signal aborts before before code runs ", async () => {
+    const abortController = new AbortController();
+    backOffRequest = jest.fn(() => new Promise(() => {}));
+    backOffOptions.signal = abortController.signal;
+    backOffOptions.numOfAttempts = 2;
+    backOffOptions.maxDelay = 1000;
+
+    abortController.abort();
+
+    await expect(initBackOff()).rejects.toThrow("Retry aborted");
+    expect(backOffRequest).not.toHaveBeenCalled();
+  });
+
+  it("When signal aborts after code start running", async () => {
+    const abortController = new AbortController();
+
+    backOffRequest = jest.fn().mockRejectedValue(mockFailResponse);
+
+    backOffOptions.signal = abortController.signal;
+    backOffOptions.numOfAttempts = 3;
+    backOffOptions.startingDelay = 3000;
+
+    setTimeout(() => {
+      abortController.abort();
+    }, 50);
+
+    await expect(initBackOff()).rejects.toEqual(mockFailResponse);
+
+    // Ensure that backOffRequest is only called once, before the abort signal is handled
+    expect(backOffRequest).toHaveBeenCalledTimes(2);
+  });
 });
