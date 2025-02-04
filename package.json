@@ -3,7 +3,8 @@
   "version": "3.1.1",
   "description": "A utility that allows retrying a function with an exponential delay between attempts.",
   "files": [
-    "dist/"
+    "dist/",
+    "src/"
   ],
   "main": "dist/backoff.js",
   "types": "dist/backoff.d.ts",
