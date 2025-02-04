@@ -8,6 +8,9 @@ jobs:
     name: CD
     runs-on: ubuntu-latest
     environment: CD
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/setup-node@v3
         with:
@@ -17,7 +20,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
-      - run: npm publish
+      - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   
