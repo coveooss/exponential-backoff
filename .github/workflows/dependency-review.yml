@@ -7,8 +7,8 @@ permissions:
   contents: read
 
 jobs:
-  dependency-Review:
-    uses: coveo/public-actions/.github/workflows/dependency-review.yml@master
+  dependency-review:
+    uses: coveo/public-actions/.github/workflows/dependency-review.yml@main
     with:
       public: true
       distributed: true
