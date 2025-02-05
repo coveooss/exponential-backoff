@@ -36,7 +36,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coveo/exponential-backoff.git"
+    "url": "git+https://github.com/coveooss/exponential-backoff.git"
   },
   "keywords": [
     "exponential",
@@ -46,9 +46,9 @@
   "author": "Sami Sayegh",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/coveo/exponential-backoff/issues"
+    "url": "https://github.com/coveooss/exponential-backoff/issues"
   },
-  "homepage": "https://github.com/coveo/exponential-backoff#readme",
+  "homepage": "https://github.com/coveooss/exponential-backoff#readme",
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^10.14.21",
