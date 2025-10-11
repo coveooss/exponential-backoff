@@ -87,3 +87,8 @@ Migrating across major versions? Here are our [breaking changes](https://github.
   The `startingDelay` is multiplied by the `timeMultiple` to increase the delay between reattempts.
 
   Default value is `2`.
+
+- `signal?: AbortSignal`
+  The optional signal parameter allows the retry process to be canceled using the AbortController API.
+
+  Default is `undefined`

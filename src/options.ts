@@ -53,6 +53,7 @@ export interface IBackOffOptions {
    * @defaultValue `2`
    */
   timeMultiple: number;
+  signal?: AbortSignal;
 }
 
 const defaultOptions: IBackOffOptions = {

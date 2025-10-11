@@ -25,14 +25,36 @@ export async function backOff<T>(
 
 class BackOff<T> {
   private attemptNumber = 0;
+  private isAborted = false;
 
   constructor(
     private request: () => Promise<T>,
     private options: IBackOffOptions
   ) {}
 
+  private _cancelWhenAborted() {
+    const { signal } = this.options;
+
+    if (!signal) return;
+
+    if (signal.aborted) {
+      this.isAborted = true;
+      return;
+    }
+
+    signal.addEventListener(
+      "abort",
+      () => {
+        this.isAborted = true;
+      },
+      { once: true }
+    );
+  }
+
   public async execute(): Promise<T> {
-    while (!this.attemptLimitReached) {
+    this._cancelWhenAborted();
+
+    while (!this.isAborted && !this.attemptLimitReached) {
       try {
         await this.applyDelay();
         return await this.request();
@@ -40,13 +62,13 @@ class BackOff<T> {
         this.attemptNumber++;
         const shouldRetry = await this.options.retry(e, this.attemptNumber);
 
-        if (!shouldRetry || this.attemptLimitReached) {
+        if (!shouldRetry || this.isAborted || this.attemptLimitReached) {
           throw e;
         }
       }
     }
 
-    throw new Error("Something went wrong.");
+    throw new Error(this.isAborted ? "Retry aborted" : "Something went wrong.");
   }
 
   private get attemptLimitReached() {
